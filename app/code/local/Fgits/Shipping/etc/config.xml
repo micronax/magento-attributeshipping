@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Fgits_Shipping>
+            <version>0.1.0</version>
+        </Fgits_Shipping>
+    </modules>
+    <global>
+        <models>
+            <Fgits_Shipping>
+                <class>Fgits_Shipping_Model</class>
+            </Fgits_Shipping>
+        </models>
+        <resources>
+            <shipping_setup>
+                <setup>
+                    <module>Fgits_Shipping</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </shipping_setup>
+        </resources>
+    </global>
+    <default>
+        <carriers>
+            <fgits_customrate>
+                <active>1</active>
+                <model>Fgits_Shipping/carrier_customrate</model>
+                <title>Warenabhängige Versandkosten</title>
+                <name>Pauschale</name>
+            </fgits_customrate>
+        </carriers>
+    </default>
+</config>
