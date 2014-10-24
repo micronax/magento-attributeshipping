@@ -24,6 +24,12 @@ class Fgits_Shipping_Model_Carrier_Customrate extends Mage_Shipping_Model_Carrie
         $method->setMethod('fgits_customrate');
         $method->setMethodTitle($this->getConfigData('name'));
 
+        // Check if cart total exceeds setting value
+        $maxCartValue = floatval($this->getConfigData('maxCartValue'));
+        if ($maxCartValue > 0 && $this->getCartTotal() >= $maxCartValue) {
+            return false;
+        }
+
         // Calculate shipping cost
         if (!$orderShippingCost = $this->determineShippgingCost($destCountry)) {
             return false;
@@ -44,9 +50,9 @@ class Fgits_Shipping_Model_Carrier_Customrate extends Mage_Shipping_Model_Carrie
 
     public function determineShippgingCost($countryCode)
     {
-        Mage::getSingleton('core/session', array('name'=>'frontend'));
-        $session = Mage::getSingleton('checkout/session');
-        $cart_items = $session->getQuote()->getAllItems();
+        $cart = $this->getCart();
+
+        $cart_items = $cart->getAllItems();
         $_helper = Mage::helper('catalog/output');
 
         $fn_name = 'getShippingCost'.ucfirst($countryCode);
@@ -63,5 +69,23 @@ class Fgits_Shipping_Model_Carrier_Customrate extends Mage_Shipping_Model_Carrie
         }
 
         return (float) $cartShippingCost;
+    }
+
+    private function getCartTotal() {
+        $quote = $this->getCart();
+        $items = $quote->getAllItems();
+
+        foreach ($items as $item) {
+            $priceInclVat += $item->getRowTotalInclTax();
+        }
+
+        return $priceInclVat;
+        return Mage::helper('checkout')->formatPrice($priceInclVat);
+    }
+
+    private function getCart() {
+        Mage::getSingleton('core/session', array('name'=>'frontend'));
+        $session = Mage::getSingleton('checkout/session');
+        return $session->getQuote();
     }
 }

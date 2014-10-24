@@ -21,7 +21,7 @@ Now you have several products where you can specify shipping cost for Germany, G
 The customer has both Products,  Product A & Product, in his cart and wants to ship to Great Britain. Now the flat-rate for the whole cart would be `25.00`, because it's the highes cost from the products.
 
 ### Installation
-You just need to Download all files from this repository and extract them into your Magento root. Be shure to activate the shipping-method in your Magento Backend.
+You just need to Download all files from this repository and extract them into your Magento root. Clear all Magento Caches and be shure to activate the shipping-method in your Magento Backend.
 
 ### Configuration
 You need to add an custom attribute to your products for every country, you want to ship products at using this shipping-method.  

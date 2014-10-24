@@ -29,6 +29,7 @@
                 <model>Fgits_Shipping/carrier_customrate</model>
                 <title>Warenabhängige Versandkosten</title>
                 <name>Pauschale</name>
+                <maxCartValue>0</maxCartValue>
             </fgits_customrate>
         </carriers>
     </default>
